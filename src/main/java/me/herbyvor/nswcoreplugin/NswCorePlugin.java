@@ -19,6 +19,7 @@ public final class NswCorePlugin extends JavaPlugin {
 
     public HashMap<Player, Integer> VoteNumber;
 
+
     @Override
     public void onEnable() {
 
