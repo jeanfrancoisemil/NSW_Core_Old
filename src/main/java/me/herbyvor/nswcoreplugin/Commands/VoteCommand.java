@@ -26,11 +26,7 @@ public class VoteCommand implements CommandExecutor {
             Player p = (Player) sender;
 
 
-            if (main.VoteNumber.get(p) != null) {
-                main.VoteNumber.put(p, main.VoteNumber.get(p) + 1);
-            }else {
-                main.VoteNumber.put(p, 1);
-            }
+            main.VoteNumber.merge(p, 1, Integer::sum);
 
             if (main.VoteNumber.get(p) >= 8) {
                 main.VoteNumber.put(p, 1);
