@@ -16,10 +16,13 @@ public class GPlayerListener implements Listener {
     @EventHandler
     public void onJoin(PlayerJoinEvent event) {
 
-
         Player p = event.getPlayer();
 
-        main.VoteNumber.put(p,1);
+        if (p != null) {
+            main.VoteNumber.put(p.getName(),1);
+        }
+
+
 
 
     }
