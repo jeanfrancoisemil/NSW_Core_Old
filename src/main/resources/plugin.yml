@@ -1,0 +1,10 @@
+name: NswCorePlugin
+version: '${project.version}'
+main: me.herbyvor.nswcoreplugin.NswCorePlugin
+api-version: 1.18
+authors: [ herbyvor ]
+description: Core plugin for nsw
+commands:
+  vote:
+    description: vote pour noskillworld
+    usage: /<command>
