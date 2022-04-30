@@ -17,7 +17,7 @@ import java.util.Objects;
 
 public final class NswCorePlugin extends JavaPlugin {
 
-    public HashMap<String, Integer> VoteNumber = new HashMap<String, Integer>();
+    public HashMap<Player, Integer> VoteNumber = new HashMap<Player, Integer>();
 
 
     @Override

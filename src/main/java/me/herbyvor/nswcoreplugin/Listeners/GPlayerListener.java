@@ -18,7 +18,7 @@ public class GPlayerListener implements Listener {
 
         Player p = event.getPlayer();
 
-        main.VoteNumber.put(p.getName(), 1);
+        main.VoteNumber.put(p, 1);
 
 
     }

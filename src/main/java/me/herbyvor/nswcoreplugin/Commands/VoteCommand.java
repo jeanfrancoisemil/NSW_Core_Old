@@ -27,13 +27,13 @@ public class VoteCommand implements CommandExecutor {
 
             Player p = (Player) sender;
 
-            if (main.VoteNumber.get(p.getName()) == 7) {
-                main.VoteNumber.put(p.getName(), 1);
+            if (main.VoteNumber.get(p) == 7) {
+                main.VoteNumber.put(p, 1);
             }
 
             //chaque votes :
 
-            if (main.VoteNumber.get(p.getName()) == 1) {
+            if (main.VoteNumber.get(p) == 1) {
                 System.out.println(p.getName() + "à effectué le vote : 1");
                 //création du book
                     BookMeta meta = (BookMeta) Bukkit.getItemFactory().getItemMeta(Material.WRITTEN_BOOK);
@@ -48,7 +48,7 @@ public class VoteCommand implements CommandExecutor {
                 //si le book marche pas :
                 p.sendMessage("§6§lVote #1 : " + "https://www.serveurs-minecraft.org/vote.php?id=60934");
 
-            }else if (main.VoteNumber.get(p.getName()) == 2) {
+            }else if (main.VoteNumber.get(p) == 2) {
                 System.out.println(p.getName() + "à effectué le vote : 2");
                 //création du book
                 BookMeta meta = (BookMeta) Bukkit.getItemFactory().getItemMeta(Material.WRITTEN_BOOK);
@@ -63,7 +63,7 @@ public class VoteCommand implements CommandExecutor {
                 //si le book marche pas :
                 p.sendMessage("§6§lVote #2 : " + "https://serveur-minecraft.com/2598");
 
-            }else if (main.VoteNumber.get(p.getName()) == 3) {
+            }else if (main.VoteNumber.get(p) == 3) {
                 System.out.println(p.getName() + "à effectué le vote : 3");
                 //création du book
                 BookMeta meta = (BookMeta) Bukkit.getItemFactory().getItemMeta(Material.WRITTEN_BOOK);
@@ -78,7 +78,7 @@ public class VoteCommand implements CommandExecutor {
                 //si le book marche pas :
                 p.sendMessage("§6§lVote #3 : " + "https://serveurs-mc.net/index.php/serveur/251");
 
-            }else if (main.VoteNumber.get(p.getName()) == 4) {
+            }else if (main.VoteNumber.get(p) == 4) {
                 System.out.println(p.getName() + "à effectué le vote : 4");
                 //création du book
                 BookMeta meta = (BookMeta) Bukkit.getItemFactory().getItemMeta(Material.WRITTEN_BOOK);
@@ -93,7 +93,7 @@ public class VoteCommand implements CommandExecutor {
                 //si le book marche pas :
                 p.sendMessage("§6§lVote #4 : " + "https://top-serveurs.net/minecraft/vote/noskillworld");
 
-            }else if (main.VoteNumber.get(p.getName()) == 5) {
+            }else if (main.VoteNumber.get(p) == 5) {
                 System.out.println(p.getName() + "à effectué le vote : 5");
                 //création du book
                 BookMeta meta = (BookMeta) Bukkit.getItemFactory().getItemMeta(Material.WRITTEN_BOOK);
@@ -108,7 +108,7 @@ public class VoteCommand implements CommandExecutor {
                 //si le book marche pas :
                 p.sendMessage("§6§lVote #5 : " + "https://serveur-prive.net/minecraft/noskillworld-9550/vote");
 
-            }else if (main.VoteNumber.get(p.getName()) == 6) {
+            }else if (main.VoteNumber.get(p) == 6) {
                 System.out.println(p.getName() + "à effectué le vote : 1");
                 //création du book
                 BookMeta meta = (BookMeta) Bukkit.getItemFactory().getItemMeta(Material.WRITTEN_BOOK);
@@ -124,6 +124,9 @@ public class VoteCommand implements CommandExecutor {
                 p.sendMessage("§6§lVote #6 : " + "https://www.liste-serveurs-minecraft.org/serveur-minecraft/noskillworld/");
 
             }
+
+            main.VoteNumber.put(p, main.VoteNumber.get(p) + 1);
+
         }
 
 
