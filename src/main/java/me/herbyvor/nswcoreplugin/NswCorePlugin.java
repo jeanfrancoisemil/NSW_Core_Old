@@ -15,6 +15,8 @@ import org.bukkit.plugin.java.JavaPlugin;
 import java.util.HashMap;
 import java.util.Objects;
 
+import static com.comphenix.protocol.ProtocolLibrary.*;
+
 public final class NswCorePlugin extends JavaPlugin {
 
     public HashMap<Player, Integer> VoteNumber = new HashMap<Player, Integer>();
@@ -29,12 +31,12 @@ public final class NswCorePlugin extends JavaPlugin {
 
     }
 
-    public void openBook(Player p, ItemStack book){
+    /*public void openBook(Player p, ItemStack book){
         int slot = p.getInventory().getHeldItemSlot();
         ItemStack old = p.getInventory().getItem(slot);
         p.getInventory().setItem(slot, book);
         try {
-            PacketContainer pc = ProtocolLibrary.getProtocolManager().createPacket(PacketType.Play.Server.CUSTOM_PAYLOAD);
+            PacketContainer pc = getProtocolManager().createPacket(PacketType.Play.Server.CUSTOM_PAYLOAD);
             pc.getModifier().writeDefaults();
             // NOTICE THE CODE BELOW!
             ByteBuf bf = Unpooled.buffer(256); // #1
@@ -43,11 +45,11 @@ public final class NswCorePlugin extends JavaPlugin {
             pc.getModifier().write(1, MinecraftReflection.getPacketDataSerializer(bf));
             // END OF NOTABLE CODE
             pc.getStrings().write(0, "MC|BOpen");
-            ProtocolLibrary.getProtocolManager().sendServerPacket(p, pc);
+            getProtocolManager().sendServerPacket(p, pc);
         } catch (Exception e) {
             e.printStackTrace();
         }
         p.getInventory().setItem(slot, old);
-    }
+    } */
 
 }
