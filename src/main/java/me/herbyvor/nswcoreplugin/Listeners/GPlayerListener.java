@@ -55,6 +55,7 @@ public class GPlayerListener implements Listener {
     @EventHandler
     public void onMove(PlayerMoveEvent event) {
         Player p = event.getPlayer();
+        main.IsFrozen.putIfAbsent(p, false);
         if (main.IsFrozen.get(p) == true) {
             event.setCancelled(true);
         }
