@@ -40,9 +40,13 @@ public class StaffCommand implements CommandExecutor {
             }
 
 
-            //wand
-            ItemStack wand = new ItemStack(Material.STICK);
-            Objects.requireNonNull(wand.getItemMeta()).setDisplayName("immobilisator");
+            //freezer
+            ItemStack freezer = new ItemStack(Material.BLUE_ICE);
+            freezer.getItemMeta().setDisplayName("immobilisator");
+
+            //invsee
+            ItemStack invsee = new ItemStack(Material.SPYGLASS);
+            invsee.getItemMeta().setDisplayName("investigator");
 
             main.IsStaffMod.putIfAbsent(p, false);
 
@@ -62,21 +66,24 @@ public class StaffCommand implements CommandExecutor {
                 p.setInvisible(true);
                 p.setInvulnerable(true);
                 p.setAllowFlight(true);
-                p.getInventory().setItemInMainHand(wand);
+                p.setCanPickupItems(false);
+                p.getInventory().setItem(0, freezer);
+                p.getInventory().setItem(1, invsee);
 
             } else if (main.IsStaffMod.get(p) == true){
                 main.IsStaffMod.put(p, false);
                 //désactivation du staffmod
                 p.sendMessage("§4§lDESACTIVATION DU STAFFMOD");
 
-                //reset des anciennes informations
-                p.teleport(oldLoc);
-                p.getInventory().setContents(oldInv.getContents());
-                p.setGameMode(oldGamemod);
                 //sortie du staffmod
                 p.setInvisible(false);
                 p.setInvulnerable(false);
                 p.setAllowFlight(false);
+                p.setCanPickupItems(true);
+                //reset des anciennes informations
+                p.teleport(oldLoc);
+                p.getInventory().setContents(oldInv.getContents());
+                p.setGameMode(oldGamemod);
 
 
 

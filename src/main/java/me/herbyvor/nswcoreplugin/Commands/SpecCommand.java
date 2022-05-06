@@ -31,10 +31,10 @@ public class SpecCommand implements CommandExecutor {
             }else {
                 isSpec = false;
                 p.setGameMode(oldGamemod);
-                p.sendMessage("§dVous n'êtes plus en gamemode spectateur");
                 p.setInvisible(true);
                 p.setInvulnerable(true);
                 p.setAllowFlight(true);
+                p.sendMessage("§dVous n'êtes plus en gamemode spectateur");
             }
 
         }else {
