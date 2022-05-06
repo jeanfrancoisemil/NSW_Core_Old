@@ -22,6 +22,7 @@ public final class NswCorePlugin extends JavaPlugin {
 
     public HashMap<Player, Integer> VoteNumber = new HashMap<Player, Integer>();
     public HashMap<Player, Boolean> IsStaffMod = new HashMap<Player, Boolean>();
+    public HashMap<Player, Boolean> IsFrozen = new HashMap<Player, Boolean>();
 
 
     @Override
