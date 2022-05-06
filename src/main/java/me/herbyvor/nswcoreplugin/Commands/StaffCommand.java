@@ -73,6 +73,10 @@ public class StaffCommand implements CommandExecutor {
                 p.teleport(oldLoc);
                 p.getInventory().setContents(oldInv.getContents());
                 p.setGameMode(oldGamemod);
+                //sortie du staffmod
+                p.setInvisible(false);
+                p.setInvulnerable(false);
+                p.setAllowFlight(false);
 
 
 

@@ -32,8 +32,13 @@ public class SpecCommand implements CommandExecutor {
                 isSpec = false;
                 p.setGameMode(oldGamemod);
                 p.sendMessage("§dVous n'êtes plus en gamemode spectateur");
+                p.setInvisible(true);
+                p.setInvulnerable(true);
+                p.setAllowFlight(true);
             }
 
+        }else {
+            p.sendMessage("§dVous n'êtes pas en staffmod (/staff)");
         }
 
         return true;
