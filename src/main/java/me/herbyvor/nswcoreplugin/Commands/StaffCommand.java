@@ -42,7 +42,7 @@ public class StaffCommand implements CommandExecutor {
             ItemStack wand = new ItemStack(Material.STICK);
             Objects.requireNonNull(wand.getItemMeta()).setDisplayName("imobilisator");
 
-
+            main.IsStaffMod.putIfAbsent(p, false);
 
 
             if (main.IsStaffMod.get(p) == false){

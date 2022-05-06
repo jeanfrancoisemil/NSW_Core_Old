@@ -34,7 +34,7 @@ public class GPlayerListener implements Listener {
                 Player p = (Player) event.getDamager();
                 Player t = (Player) event.getEntity();
                 if (main.IsStaffMod.get(p) == true) {
-
+                    main.IsFrozen.putIfAbsent(p, false);
                     if (main.IsFrozen.get(t) == true) {
                         //freeze du joueur
                         main.IsFrozen.put(t, true);
