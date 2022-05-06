@@ -7,6 +7,7 @@ import com.comphenix.protocol.events.PacketContainer;
 import com.comphenix.protocol.utility.MinecraftReflection;
 import io.netty.buffer.ByteBuf;
 import io.netty.buffer.Unpooled;
+import me.herbyvor.nswcoreplugin.Commands.SpecCommand;
 import me.herbyvor.nswcoreplugin.Commands.StaffCommand;
 import me.herbyvor.nswcoreplugin.Commands.VoteCommand;
 import org.bukkit.entity.Player;
@@ -32,6 +33,7 @@ public final class NswCorePlugin extends JavaPlugin {
 
         Objects.requireNonNull(getCommand("vote")).setExecutor(new VoteCommand(this));
         Objects.requireNonNull(getCommand("staff")).setExecutor(new StaffCommand(this));
+        Objects.requireNonNull(getCommand("spec")).setExecutor(new SpecCommand(this));
 
     }
 

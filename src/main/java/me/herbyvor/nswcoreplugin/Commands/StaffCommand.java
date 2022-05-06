@@ -13,6 +13,7 @@ import org.bukkit.entity.Player;
 import org.bukkit.event.inventory.InventoryType;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
+import org.bukkit.inventory.meta.ItemMeta;
 
 import java.util.Objects;
 
@@ -23,6 +24,7 @@ public class StaffCommand implements CommandExecutor {
     Player p;
     Location oldLoc;
     Inventory oldInv;
+    GameMode oldGamemod;
 
     @Override
     public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
@@ -40,7 +42,7 @@ public class StaffCommand implements CommandExecutor {
 
             //wand
             ItemStack wand = new ItemStack(Material.STICK);
-            Objects.requireNonNull(wand.getItemMeta()).setDisplayName("imobilisator");
+            Objects.requireNonNull(wand.getItemMeta()).setDisplayName("immobilisator");
 
             main.IsStaffMod.putIfAbsent(p, false);
 
@@ -54,10 +56,12 @@ public class StaffCommand implements CommandExecutor {
                 oldLoc = p.getLocation();
                 oldInv = Bukkit.createInventory(p, InventoryType.PLAYER);
                 oldInv.setContents(p.getInventory().getContents());
-
+                oldGamemod = p.getGameMode();
                 //entrée en staffmod
                 p.getInventory().clear();
-                p.setGameMode(GameMode.SPECTATOR);
+                p.setInvisible(true);
+                p.setInvulnerable(true);
+                p.setAllowFlight(true);
                 p.getInventory().setItemInMainHand(wand);
 
             } else if (main.IsStaffMod.get(p) == true){
@@ -68,9 +72,8 @@ public class StaffCommand implements CommandExecutor {
                 //reset des anciennes informations
                 p.teleport(oldLoc);
                 p.getInventory().setContents(oldInv.getContents());
+                p.setGameMode(oldGamemod);
 
-                //sortie du staffmod
-                p.setGameMode(GameMode.SURVIVAL);
 
 
 

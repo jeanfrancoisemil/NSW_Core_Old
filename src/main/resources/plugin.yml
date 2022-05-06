@@ -11,3 +11,6 @@ commands:
   staff:
     description: staff mod
     usage: /<command>
+  spec:
+    description: passage en gamemode spectateur lorsque vous êtes en staffmod
+    usage: /<command>
