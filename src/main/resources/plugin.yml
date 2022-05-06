@@ -8,3 +8,6 @@ commands:
   vote:
     description: vote pour noskillworld
     usage: /<command>
+  staff:
+    description: staff mod
+    usage: /<command>

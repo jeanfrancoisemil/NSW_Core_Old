@@ -7,6 +7,7 @@ import com.comphenix.protocol.events.PacketContainer;
 import com.comphenix.protocol.utility.MinecraftReflection;
 import io.netty.buffer.ByteBuf;
 import io.netty.buffer.Unpooled;
+import me.herbyvor.nswcoreplugin.Commands.StaffCommand;
 import me.herbyvor.nswcoreplugin.Commands.VoteCommand;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
@@ -20,6 +21,7 @@ import static com.comphenix.protocol.ProtocolLibrary.*;
 public final class NswCorePlugin extends JavaPlugin {
 
     public HashMap<Player, Integer> VoteNumber = new HashMap<Player, Integer>();
+    public HashMap<Player, Boolean> IsStaffMod = new HashMap<Player, Boolean>();
 
 
     @Override
@@ -28,6 +30,7 @@ public final class NswCorePlugin extends JavaPlugin {
         System.out.println("NSW Core plugin : On");
 
         Objects.requireNonNull(getCommand("vote")).setExecutor(new VoteCommand(this));
+        Objects.requireNonNull(getCommand("staff")).setExecutor(new StaffCommand(this));
 
     }
 
