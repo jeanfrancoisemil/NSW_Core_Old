@@ -20,9 +20,9 @@ public class SpecCommand implements CommandExecutor {
 
         Player p = (Player) sender;
 
-        main.IsStaffMod.putIfAbsent(p, false);
+        main.IsStaffMod.putIfAbsent(p.getUniqueId(), false);
 
-        if (main.IsStaffMod.get(p) == true) {
+        if (main.IsStaffMod.get(p.getUniqueId()) == true) {
             if (isSpec == false) {
                 isSpec = true;
                 oldGamemod = p.getGameMode();

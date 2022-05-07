@@ -23,7 +23,8 @@ public class GPlayerListener implements Listener {
         Player p = event.getPlayer();
 
         main.VoteNumber.put(p, 1);
-        if (main.IsStaffMod.get(p) == true){
+        main.IsStaffMod.putIfAbsent(p.getUniqueId(), false);
+        if (main.IsStaffMod.get(p.getUniqueId()) == true){
             p.setAllowFlight(true);
             p.sendMessage("§dVous êtes toujours en staffmod");
         }
@@ -37,17 +38,17 @@ public class GPlayerListener implements Listener {
             if (event.getEntity() instanceof Player) {
                 Player p = (Player) event.getDamager();
                 Player t = (Player) event.getEntity();
-                if (main.IsStaffMod.get(p) == true) {
+                if (main.IsStaffMod.get(p.getUniqueId()) == true) {
                     if (p.getInventory().getItemInMainHand().getItemMeta().getDisplayName().equals("immobilisator")){
-                        main.IsFrozen.putIfAbsent(p, false);
-                        if (main.IsFrozen.get(t) == true) {
+                        main.IsFrozen.putIfAbsent(t.getUniqueId(), false);
+                        if (main.IsFrozen.get(t.getUniqueId()) == false) {
                             //freeze du joueur
-                            main.IsFrozen.put(t, true);
+                            main.IsFrozen.put(t.getUniqueId(), true);
                             t.sendMessage("§4§lVOUS AVEZ ETES IMOBILISES PAR " + p.getName());
                             p.sendMessage("§5§lvous avez imobilisé " + t.getName());
-                        } else if (main.IsFrozen.get(t) == false) {
+                        } else if (main.IsFrozen.get(t.getUniqueId()) == true) {
                             //unfreeze du joueur
-                            main.IsFrozen.put(t, false);
+                            main.IsFrozen.put(t.getUniqueId(), false);
                             t.sendMessage("§avous pouvez à nouveau bouger");
                             p.sendMessage("§5§lvous avez libére" + t.getName());
                         }
@@ -64,8 +65,8 @@ public class GPlayerListener implements Listener {
     @EventHandler
     public void onMove(PlayerMoveEvent event) {
         Player p = event.getPlayer();
-        main.IsFrozen.putIfAbsent(p, false);
-        if (main.IsFrozen.get(p) == true) {
+        main.IsFrozen.putIfAbsent(p.getUniqueId(), false);
+        if (main.IsFrozen.get(p.getUniqueId()) == true) {
             event.setCancelled(true);
         }
     }

@@ -16,14 +16,15 @@ import org.bukkit.plugin.java.JavaPlugin;
 
 import java.util.HashMap;
 import java.util.Objects;
+import java.util.UUID;
 
 import static com.comphenix.protocol.ProtocolLibrary.*;
 
 public final class NswCorePlugin extends JavaPlugin {
 
     public HashMap<Player, Integer> VoteNumber = new HashMap<Player, Integer>();
-    public HashMap<Player, Boolean> IsStaffMod = new HashMap<Player, Boolean>();
-    public HashMap<Player, Boolean> IsFrozen = new HashMap<Player, Boolean>();
+    public HashMap<UUID, Boolean> IsStaffMod = new HashMap<UUID, Boolean>();
+    public HashMap<UUID, Boolean> IsFrozen = new HashMap<UUID, Boolean>();
 
 
     @Override

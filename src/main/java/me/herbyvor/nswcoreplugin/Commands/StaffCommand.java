@@ -52,11 +52,11 @@ public class StaffCommand implements CommandExecutor {
             invseeMeta.setDisplayName("investigator");
             invsee.setItemMeta(invseeMeta);
 
-            main.IsStaffMod.putIfAbsent(p, false);
+            main.IsStaffMod.putIfAbsent(p.getUniqueId(), false);
 
 
-            if (main.IsStaffMod.get(p) == false){
-                main.IsStaffMod.put(p, true);
+            if (main.IsStaffMod.get(p.getUniqueId()) == false){
+                main.IsStaffMod.put(p.getUniqueId(), true);
                 //activation du staffmod
                 p.sendMessage("§4§ACTIVATION DU STAFFMOD");
 
@@ -74,8 +74,8 @@ public class StaffCommand implements CommandExecutor {
                 p.getInventory().setItem(0, freezer);
                 p.getInventory().setItem(1, invsee);
 
-            } else if (main.IsStaffMod.get(p) == true){
-                main.IsStaffMod.put(p, false);
+            } else if (main.IsStaffMod.get(p.getUniqueId()) == true){
+                main.IsStaffMod.put(p.getUniqueId(), false);
                 //désactivation du staffmod
                 p.sendMessage("§4§lDESACTIVATION DU STAFFMOD");
 
