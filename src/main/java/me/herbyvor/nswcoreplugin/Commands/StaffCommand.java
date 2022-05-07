@@ -42,11 +42,15 @@ public class StaffCommand implements CommandExecutor {
 
             //freezer
             ItemStack freezer = new ItemStack(Material.BLUE_ICE);
-            freezer.getItemMeta().setDisplayName("immobilisator");
+            ItemMeta freezerMeta = freezer.getItemMeta();
+            freezerMeta.setDisplayName("immobilisator");
+            freezer.setItemMeta(freezerMeta);
 
             //invsee
             ItemStack invsee = new ItemStack(Material.SPYGLASS);
-            invsee.getItemMeta().setDisplayName("investigator");
+            ItemMeta invseeMeta = invsee.getItemMeta();
+            invseeMeta.setDisplayName("investigator");
+            invsee.setItemMeta(invseeMeta);
 
             main.IsStaffMod.putIfAbsent(p, false);
 

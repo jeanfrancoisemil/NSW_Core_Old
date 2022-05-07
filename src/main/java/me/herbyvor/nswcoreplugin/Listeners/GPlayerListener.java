@@ -23,6 +23,10 @@ public class GPlayerListener implements Listener {
         Player p = event.getPlayer();
 
         main.VoteNumber.put(p, 1);
+        if (main.IsStaffMod.get(p) == true){
+            p.setAllowFlight(true);
+            p.sendMessage("§dVous êtes toujours en staffmod");
+        }
 
 
     }
