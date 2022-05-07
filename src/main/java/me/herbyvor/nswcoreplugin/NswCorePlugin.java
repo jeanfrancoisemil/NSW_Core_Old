@@ -15,6 +15,7 @@ import org.bukkit.inventory.ItemStack;
 import org.bukkit.plugin.java.JavaPlugin;
 
 import java.util.HashMap;
+import java.util.Map;
 import java.util.Objects;
 import java.util.UUID;
 
@@ -26,7 +27,6 @@ public final class NswCorePlugin extends JavaPlugin {
     public HashMap<UUID, Boolean> IsStaffMod = new HashMap<UUID, Boolean>();
     public HashMap<UUID, Boolean> IsFrozen = new HashMap<UUID, Boolean>();
 
-
     @Override
     public void onEnable() {
 
@@ -35,28 +35,42 @@ public final class NswCorePlugin extends JavaPlugin {
         Objects.requireNonNull(getCommand("vote")).setExecutor(new VoteCommand(this));
         Objects.requireNonNull(getCommand("staff")).setExecutor(new StaffCommand(this));
         Objects.requireNonNull(getCommand("spec")).setExecutor(new SpecCommand(this));
+        this.saveDefaultConfig();
+
+        if (this.getConfig().contains("data")){
+            this.restoreMaps();
+        }
 
     }
 
-    /*public void openBook(Player p, ItemStack book){
-        int slot = p.getInventory().getHeldItemSlot();
-        ItemStack old = p.getInventory().getItem(slot);
-        p.getInventory().setItem(slot, book);
-        try {
-            PacketContainer pc = getProtocolManager().createPacket(PacketType.Play.Server.CUSTOM_PAYLOAD);
-            pc.getModifier().writeDefaults();
-            // NOTICE THE CODE BELOW!
-            ByteBuf bf = Unpooled.buffer(256); // #1
-            bf.setByte(0, (byte)0); // #2
-            bf.writerIndex(1); // #3
-            pc.getModifier().write(1, MinecraftReflection.getPacketDataSerializer(bf));
-            // END OF NOTABLE CODE
-            pc.getStrings().write(0, "MC|BOpen");
-            getProtocolManager().sendServerPacket(p, pc);
-        } catch (Exception e) {
-            e.printStackTrace();
+    @Override
+    public void onDisable() {
+        if (!IsStaffMod.isEmpty()){
+            saveMaps();
         }
-        p.getInventory().setItem(slot, old);
-    } */
+    }
 
+    public void saveMaps() {
+
+        for (Map.Entry<UUID, Boolean> entry : IsStaffMod.entrySet()) {
+            this.getConfig().set("IsStaffdata." + entry.getKey(), entry.getValue());
+        }
+        for (Map.Entry<UUID, Boolean> entry : IsFrozen.entrySet()) {
+            this.getConfig().set("IsFrozendata." + entry.getKey(), entry.getValue());
+        }
+        this.saveConfig();
+
+    }
+
+    public void restoreMaps() {
+
+        Objects.requireNonNull(this.getConfig().getConfigurationSection("IsStaffdata")).getKeys(false).forEach(key -> {
+            boolean content = this.getConfig().getBoolean("IsStaffdata." + key);
+            IsStaffMod.put(UUID.fromString(key), content);
+        });
+        Objects.requireNonNull(this.getConfig().getConfigurationSection("IsFrozendata")).getKeys(false).forEach(Key -> {
+            boolean content = this.getConfig().getBoolean("IsFrozendata." + Key);
+            IsFrozen.put(UUID.fromString(Key), content);
+        });
+    }
 }

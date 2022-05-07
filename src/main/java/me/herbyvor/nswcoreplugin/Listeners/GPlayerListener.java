@@ -6,10 +6,7 @@ import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.entity.EntityDamageByEntityEvent;
-import org.bukkit.event.player.PlayerInteractEntityEvent;
-import org.bukkit.event.player.PlayerInteractEvent;
-import org.bukkit.event.player.PlayerJoinEvent;
-import org.bukkit.event.player.PlayerMoveEvent;
+import org.bukkit.event.player.*;
 
 public class GPlayerListener implements Listener {
 
@@ -23,6 +20,11 @@ public class GPlayerListener implements Listener {
         Player p = event.getPlayer();
 
         main.VoteNumber.put(p, 1);
+
+        if (main.getConfig().contains("data")) {
+            main.restoreMaps();
+        }
+
         main.IsStaffMod.putIfAbsent(p.getUniqueId(), false);
         if (main.IsStaffMod.get(p.getUniqueId()) == true){
             p.setAllowFlight(true);
@@ -30,6 +32,14 @@ public class GPlayerListener implements Listener {
         }
 
 
+    }
+
+    @EventHandler
+    public void OnLeave(PlayerQuitEvent event){
+        Player p = event.getPlayer();
+        if (!main.IsStaffMod.isEmpty()){
+            main.saveMaps();
+        }
     }
 
     @EventHandler
