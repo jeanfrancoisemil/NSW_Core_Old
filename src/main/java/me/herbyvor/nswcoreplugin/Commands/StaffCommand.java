@@ -58,7 +58,7 @@ public class StaffCommand implements CommandExecutor {
             if (main.IsStaffMod.get(p.getUniqueId()) == false){
                 main.IsStaffMod.put(p.getUniqueId(), true);
                 //activation du staffmod
-                p.sendMessage("§4§ACTIVATION DU STAFFMOD");
+                p.sendMessage("§4§lACTIVATION DU STAFFMOD");
 
                 //stockage anciennes informations
                 oldLoc = p.getLocation();

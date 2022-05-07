@@ -10,8 +10,10 @@ import io.netty.buffer.Unpooled;
 import me.herbyvor.nswcoreplugin.Commands.SpecCommand;
 import me.herbyvor.nswcoreplugin.Commands.StaffCommand;
 import me.herbyvor.nswcoreplugin.Commands.VoteCommand;
+import me.herbyvor.nswcoreplugin.Listeners.GPlayerListener;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
+import org.bukkit.plugin.PluginManager;
 import org.bukkit.plugin.java.JavaPlugin;
 
 import java.util.HashMap;
@@ -35,12 +37,15 @@ public final class NswCorePlugin extends JavaPlugin {
         Objects.requireNonNull(getCommand("vote")).setExecutor(new VoteCommand(this));
         Objects.requireNonNull(getCommand("staff")).setExecutor(new StaffCommand(this));
         Objects.requireNonNull(getCommand("spec")).setExecutor(new SpecCommand(this));
-        this.saveDefaultConfig();
 
-        if (this.getConfig().contains("data")){
+        PluginManager pm = getServer().getPluginManager();
+        pm.registerEvents(new GPlayerListener(this), this);
+
+
+        this.saveDefaultConfig();
+        if (this.getConfig().contains("IsStaffdata") && this.getConfig().contains("IsFrozendata")){
             this.restoreMaps();
         }
-
     }
 
     @Override
@@ -54,9 +59,11 @@ public final class NswCorePlugin extends JavaPlugin {
 
         for (Map.Entry<UUID, Boolean> entry : IsStaffMod.entrySet()) {
             this.getConfig().set("IsStaffdata." + entry.getKey(), entry.getValue());
+            System.out.println("le joueur " + entry.getKey() + "a bien été sauvegardé avec le isStaff : " + entry.getValue());
         }
         for (Map.Entry<UUID, Boolean> entry : IsFrozen.entrySet()) {
             this.getConfig().set("IsFrozendata." + entry.getKey(), entry.getValue());
+            System.out.println("le joueur " + entry.getKey() + "a bien été sauvegardé avec le isFrozen : " + entry.getValue());
         }
         this.saveConfig();
 
@@ -64,13 +71,13 @@ public final class NswCorePlugin extends JavaPlugin {
 
     public void restoreMaps() {
 
-        Objects.requireNonNull(this.getConfig().getConfigurationSection("IsStaffdata")).getKeys(false).forEach(key -> {
+        this.getConfig().getConfigurationSection("IsStaffdata").getKeys(false).forEach(key -> {
             boolean content = this.getConfig().getBoolean("IsStaffdata." + key);
             IsStaffMod.put(UUID.fromString(key), content);
         });
-        Objects.requireNonNull(this.getConfig().getConfigurationSection("IsFrozendata")).getKeys(false).forEach(Key -> {
-            boolean content = this.getConfig().getBoolean("IsFrozendata." + Key);
-            IsFrozen.put(UUID.fromString(Key), content);
+        this.getConfig().getConfigurationSection("IsFrozendata").getKeys(false).forEach(key -> {
+            boolean content = this.getConfig().getBoolean("IsFrozendata." + key);
+            IsFrozen.put(UUID.fromString(key), content);
         });
     }
 }

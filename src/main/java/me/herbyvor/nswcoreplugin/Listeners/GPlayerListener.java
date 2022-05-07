@@ -21,11 +21,12 @@ public class GPlayerListener implements Listener {
 
         main.VoteNumber.put(p, 1);
 
-        if (main.getConfig().contains("data")) {
+        if (main.getConfig().contains("IsStaffdata") && main.getConfig().contains("IsFrozendata")){
             main.restoreMaps();
+            System.out.println("map restaurées");
         }
-
         main.IsStaffMod.putIfAbsent(p.getUniqueId(), false);
+        main.IsFrozen.putIfAbsent(p.getUniqueId(), false);
         if (main.IsStaffMod.get(p.getUniqueId()) == true){
             p.setAllowFlight(true);
             p.sendMessage("§dVous êtes toujours en staffmod");
@@ -37,24 +38,22 @@ public class GPlayerListener implements Listener {
     @EventHandler
     public void OnLeave(PlayerQuitEvent event){
         Player p = event.getPlayer();
-        if (!main.IsStaffMod.isEmpty()){
+        if (!main.IsStaffMod.isEmpty() && !main.IsFrozen.isEmpty()){
             main.saveMaps();
         }
     }
 
     @EventHandler
-    public void onLeftClick(EntityDamageByEntityEvent event){
-        if (event.getDamager() instanceof Player){
-            if (event.getEntity() instanceof Player) {
-                Player p = (Player) event.getDamager();
-                Player t = (Player) event.getEntity();
+    public void onIteractAtEntity(PlayerInteractAtEntityEvent event){
+            if (event.getRightClicked() instanceof Player) {
+                Player p = (Player) event.getPlayer();
+                Player t = (Player) event.getRightClicked();
                 if (main.IsStaffMod.get(p.getUniqueId()) == true) {
                     if (p.getInventory().getItemInMainHand().getItemMeta().getDisplayName().equals("immobilisator")){
-                        main.IsFrozen.putIfAbsent(t.getUniqueId(), false);
                         if (main.IsFrozen.get(t.getUniqueId()) == false) {
                             //freeze du joueur
                             main.IsFrozen.put(t.getUniqueId(), true);
-                            t.sendMessage("§4§lVOUS AVEZ ETES IMOBILISES PAR " + p.getName());
+                            t.sendMessage("§4§lVOUS AVEZ ETES IMOBILISE PAR " + p.getName());
                             p.sendMessage("§5§lvous avez imobilisé " + t.getName());
                         } else if (main.IsFrozen.get(t.getUniqueId()) == true) {
                             //unfreeze du joueur
@@ -69,7 +68,6 @@ public class GPlayerListener implements Listener {
 
                 }
             }
-        }
     }
 
     @EventHandler
