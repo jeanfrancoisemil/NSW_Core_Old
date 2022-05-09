@@ -32,6 +32,14 @@ public class GPlayerListener implements Listener {
         if (main.IsStaffMod.get(p.getUniqueId()) == true){
             p.setAllowFlight(true);
             p.sendMessage("§dVous êtes toujours en staffmod");
+        } else {
+            if (p.hasPermission("staffmod")) {
+                p.setInvisible(false);
+                p.setInvulnerable(false);
+                p.setAllowFlight(false);
+                p.setCanPickupItems(true);
+                p.sendMessage("§dVous n'êtes pas en staffmod. Faites /staff pour entrer en staff mod");
+            }
         }
 
 
@@ -62,7 +70,7 @@ public class GPlayerListener implements Listener {
                             //unfreeze du joueur
                             main.IsFrozen.put(t.getUniqueId(), false);
                             t.sendMessage("§avous pouvez à nouveau bouger");
-                            p.sendMessage("§5§lvous avez libére" + t.getName());
+                            p.sendMessage("§5§lvous avez libéré " + t.getName());
                         }
                     }else if (p.getInventory().getItemInMainHand().getItemMeta().getDisplayName().equals("investigator")){
                         Inventory tInv = t.getInventory();

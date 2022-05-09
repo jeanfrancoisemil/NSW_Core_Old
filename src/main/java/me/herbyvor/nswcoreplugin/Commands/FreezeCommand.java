@@ -19,7 +19,7 @@ public class FreezeCommand implements CommandExecutor {
         main.IsStaffMod.putIfAbsent(p.getUniqueId(), false);
         if (main.IsStaffMod.get(p.getUniqueId()) == true) {
             if (args.length == 0) {
-                p.sendMessage("Veuillez indiquer le joueur que vous souhaitez freeze ou unfreeze");
+                p.sendMessage("§dVeuillez indiquer le joueur que vous souhaitez freeze ou unfreeze");
             }
             if (args.length >= 1) {
                 Player t = Bukkit.getPlayer(args[0]);
@@ -33,7 +33,7 @@ public class FreezeCommand implements CommandExecutor {
                     //unfreeze du joueur
                     main.IsFrozen.put(t.getUniqueId(), false);
                     t.sendMessage("§avous pouvez à nouveau bouger");
-                    p.sendMessage("§5§lvous avez libére" + t.getName());
+                    p.sendMessage("§5§lvous avez libéré " + t.getName());
                 }
 
             }

@@ -20,7 +20,7 @@ public class InvseeCommand implements CommandExecutor {
         main.IsStaffMod.putIfAbsent(p.getUniqueId(), false);
         if (main.IsStaffMod.get(p.getUniqueId()) == true) {
             if (args.length == 0) {
-                p.sendMessage("Veuillez indiquer le joueur dont vous souhaitez inspecter l'inventaire");
+                p.sendMessage("§dVeuillez indiquer le joueur dont vous souhaitez inspecter l'inventaire");
             }
             if (args.length >= 1) {
                 Player t = Bukkit.getPlayer(args[0]);
