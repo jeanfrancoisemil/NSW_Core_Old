@@ -36,7 +36,6 @@ public class GPlayerListener implements Listener {
             if (p.hasPermission("staffmod")) {
                 p.setInvisible(false);
                 p.setInvulnerable(false);
-                p.setAllowFlight(false);
                 p.setCanPickupItems(true);
                 p.sendMessage("§dVous n'êtes pas en staffmod. Faites /staff pour entrer en staff mod");
             }
