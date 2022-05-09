@@ -7,6 +7,8 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.entity.EntityDamageByEntityEvent;
 import org.bukkit.event.player.*;
+import org.bukkit.inventory.EquipmentSlot;
+import org.bukkit.inventory.Inventory;
 
 public class GPlayerListener implements Listener {
 
@@ -44,10 +46,11 @@ public class GPlayerListener implements Listener {
     }
 
     @EventHandler
-    public void onIteractAtEntity(PlayerInteractAtEntityEvent event){
+    public void onInteractAtEntity(PlayerInteractAtEntityEvent event){
             if (event.getRightClicked() instanceof Player) {
                 Player p = (Player) event.getPlayer();
                 Player t = (Player) event.getRightClicked();
+                if(event.getHand() == EquipmentSlot.HAND) return;
                 if (main.IsStaffMod.get(p.getUniqueId()) == true) {
                     if (p.getInventory().getItemInMainHand().getItemMeta().getDisplayName().equals("immobilisator")){
                         if (main.IsFrozen.get(t.getUniqueId()) == false) {
@@ -55,14 +58,15 @@ public class GPlayerListener implements Listener {
                             main.IsFrozen.put(t.getUniqueId(), true);
                             t.sendMessage("§4§lVOUS AVEZ ETES IMOBILISE PAR " + p.getName());
                             p.sendMessage("§5§lvous avez imobilisé " + t.getName());
-                        } else if (main.IsFrozen.get(t.getUniqueId()) == true) {
+                        } else {
                             //unfreeze du joueur
                             main.IsFrozen.put(t.getUniqueId(), false);
                             t.sendMessage("§avous pouvez à nouveau bouger");
                             p.sendMessage("§5§lvous avez libére" + t.getName());
                         }
                     }else if (p.getInventory().getItemInMainHand().getItemMeta().getDisplayName().equals("investigator")){
-                        p.openInventory(t.getInventory());
+                        Inventory tInv = t.getInventory();
+                        p.openInventory(tInv);
                     }
 
 
