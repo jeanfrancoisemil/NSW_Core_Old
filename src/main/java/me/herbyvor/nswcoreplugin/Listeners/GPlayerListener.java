@@ -50,7 +50,7 @@ public class GPlayerListener implements Listener {
             if (event.getRightClicked() instanceof Player) {
                 Player p = (Player) event.getPlayer();
                 Player t = (Player) event.getRightClicked();
-                if(event.getHand() == EquipmentSlot.HAND) return;
+                if(event.getHand() == EquipmentSlot.OFF_HAND) return;
                 if (main.IsStaffMod.get(p.getUniqueId()) == true) {
                     if (p.getInventory().getItemInMainHand().getItemMeta().getDisplayName().equals("immobilisator")){
                         if (main.IsFrozen.get(t.getUniqueId()) == false) {

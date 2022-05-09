@@ -7,9 +7,7 @@ import com.comphenix.protocol.events.PacketContainer;
 import com.comphenix.protocol.utility.MinecraftReflection;
 import io.netty.buffer.ByteBuf;
 import io.netty.buffer.Unpooled;
-import me.herbyvor.nswcoreplugin.Commands.SpecCommand;
-import me.herbyvor.nswcoreplugin.Commands.StaffCommand;
-import me.herbyvor.nswcoreplugin.Commands.VoteCommand;
+import me.herbyvor.nswcoreplugin.Commands.*;
 import me.herbyvor.nswcoreplugin.Listeners.GPlayerListener;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
@@ -37,6 +35,8 @@ public final class NswCorePlugin extends JavaPlugin {
         Objects.requireNonNull(getCommand("vote")).setExecutor(new VoteCommand(this));
         Objects.requireNonNull(getCommand("staff")).setExecutor(new StaffCommand(this));
         Objects.requireNonNull(getCommand("spec")).setExecutor(new SpecCommand(this));
+        Objects.requireNonNull(getCommand("freeze")).setExecutor(new FreezeCommand(this));
+        Objects.requireNonNull(getCommand("invsee")).setExecutor(new InvseeCommand(this));
 
         PluginManager pm = getServer().getPluginManager();
         pm.registerEvents(new GPlayerListener(this), this);

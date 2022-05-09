@@ -14,3 +14,9 @@ commands:
   spec:
     description: passage en gamemode spectateur lorsque vous êtes en staffmod
     usage: /<command>
+  freeze:
+    description: freeze ou unfreeze un joueur
+    usage: /<command>
+  invsee:
+    description: voir l'inventaire d'un joueur
+    usage: /<command>
