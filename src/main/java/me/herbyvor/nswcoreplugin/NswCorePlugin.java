@@ -9,7 +9,10 @@ import io.netty.buffer.ByteBuf;
 import io.netty.buffer.Unpooled;
 import me.herbyvor.nswcoreplugin.Commands.*;
 import me.herbyvor.nswcoreplugin.Listeners.GPlayerListener;
+import org.bukkit.GameMode;
+import org.bukkit.Location;
 import org.bukkit.entity.Player;
+import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.plugin.PluginManager;
 import org.bukkit.plugin.java.JavaPlugin;
@@ -26,6 +29,9 @@ public final class NswCorePlugin extends JavaPlugin {
     public HashMap<Player, Integer> VoteNumber = new HashMap<Player, Integer>();
     public HashMap<UUID, Boolean> IsStaffMod = new HashMap<UUID, Boolean>();
     public HashMap<UUID, Boolean> IsFrozen = new HashMap<UUID, Boolean>();
+    public HashMap<UUID, Inventory> OldInv = new HashMap<UUID, Inventory>();
+    public HashMap<UUID, Location> OldLoc = new HashMap<UUID, Location>();
+    public HashMap<UUID, GameMode> OldGamemod = new HashMap<UUID, GameMode>();
 
     @Override
     public void onEnable() {
