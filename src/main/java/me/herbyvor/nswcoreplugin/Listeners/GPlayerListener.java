@@ -90,6 +90,16 @@ public class GPlayerListener implements Listener {
         }
     }
 
+    @EventHandler
+    public void onChangeDimension(PlayerChangedWorldEvent event) {
+        Player p = event.getPlayer();
+
+        if (main.IsStaffMod.get(p.getUniqueId()) == true) {
+            p.setAllowFlight(true);
+            p.sendMessage("§dvous êtes toujours en staffmod");
+        }
+    }
+
 
 
 }

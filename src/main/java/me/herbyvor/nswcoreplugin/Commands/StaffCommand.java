@@ -24,9 +24,6 @@ public class StaffCommand implements CommandExecutor {
     private NswCorePlugin main;
     public StaffCommand(NswCorePlugin main1) {this.main = main1;}
     Player p;
-    Location oldLoc;
-    Inventory oldInv;
-    GameMode oldGamemod;
 
     @Override
     public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
@@ -63,10 +60,9 @@ public class StaffCommand implements CommandExecutor {
                 p.sendMessage("§4§lACTIVATION DU STAFFMOD");
 
                 //stockage anciennes informations
-                oldLoc = p.getLocation();
-                oldInv = Bukkit.createInventory(p, InventoryType.PLAYER);
-                oldInv.setContents(p.getInventory().getContents());
-                oldGamemod = p.getGameMode();
+                main.OldLoc.put(p.getUniqueId(), p.getLocation());
+                main.OldInv.put(p.getUniqueId(), p.getInventory().getContents());
+                main.OldGamemod.put(p.getUniqueId(), p.getGameMode().toString());
                 //entrée en staffmod
                 p.getInventory().clear();
                 p.setInvisible(true);
@@ -87,9 +83,9 @@ public class StaffCommand implements CommandExecutor {
                 p.setAllowFlight(false);
                 p.setCanPickupItems(true);
                 //reset des anciennes informations
-                p.teleport(oldLoc);
-                p.getInventory().setContents(oldInv.getContents());
-                p.setGameMode(oldGamemod);
+                p.teleport(main.OldLoc.get(p.getUniqueId()));
+                p.getInventory().setContents(main.OldInv.get(p.getUniqueId()));
+                p.setGameMode(GameMode.valueOf(main.OldGamemod.get(p.getUniqueId())));
 
 
 

@@ -1,37 +1,25 @@
 package me.herbyvor.nswcoreplugin;
 
 
-import com.comphenix.protocol.PacketType;
-import com.comphenix.protocol.ProtocolLibrary;
-import com.comphenix.protocol.events.PacketContainer;
-import com.comphenix.protocol.utility.MinecraftReflection;
-import io.netty.buffer.ByteBuf;
-import io.netty.buffer.Unpooled;
 import me.herbyvor.nswcoreplugin.Commands.*;
 import me.herbyvor.nswcoreplugin.Listeners.GPlayerListener;
 import org.bukkit.GameMode;
 import org.bukkit.Location;
 import org.bukkit.entity.Player;
-import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.plugin.PluginManager;
 import org.bukkit.plugin.java.JavaPlugin;
 
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Objects;
-import java.util.UUID;
-
-import static com.comphenix.protocol.ProtocolLibrary.*;
+import java.util.*;
 
 public final class NswCorePlugin extends JavaPlugin {
 
     public HashMap<Player, Integer> VoteNumber = new HashMap<Player, Integer>();
     public HashMap<UUID, Boolean> IsStaffMod = new HashMap<UUID, Boolean>();
     public HashMap<UUID, Boolean> IsFrozen = new HashMap<UUID, Boolean>();
-    public HashMap<UUID, Inventory> OldInv = new HashMap<UUID, Inventory>();
+    public HashMap<UUID, ItemStack[]> OldInv = new HashMap<UUID, ItemStack[]>();
     public HashMap<UUID, Location> OldLoc = new HashMap<UUID, Location>();
-    public HashMap<UUID, GameMode> OldGamemod = new HashMap<UUID, GameMode>();
+    public HashMap<UUID, String> OldGamemod = new HashMap<UUID, String>();
 
     @Override
     public void onEnable() {
@@ -49,14 +37,14 @@ public final class NswCorePlugin extends JavaPlugin {
 
 
         this.saveDefaultConfig();
-        if (this.getConfig().contains("IsStaffdata") && this.getConfig().contains("IsFrozendata")){
+        if (this.getConfig().contains("IsStaffdata") && this.getConfig().contains("IsFrozendata") && this.getConfig().contains("OldInvdata") && this.getConfig().contains("OldLocdata") && this.getConfig().contains("OldGamemoddata")){
             this.restoreMaps();
         }
     }
 
     @Override
     public void onDisable() {
-        if (!IsStaffMod.isEmpty()){
+        if (!IsStaffMod.isEmpty() || !IsFrozen.isEmpty()){
             saveMaps();
         }
     }
@@ -65,11 +53,18 @@ public final class NswCorePlugin extends JavaPlugin {
 
         for (Map.Entry<UUID, Boolean> entry : IsStaffMod.entrySet()) {
             this.getConfig().set("IsStaffdata." + entry.getKey(), entry.getValue());
-            System.out.println("le joueur " + entry.getKey() + "a bien été sauvegardé avec le isStaff : " + entry.getValue());
         }
         for (Map.Entry<UUID, Boolean> entry : IsFrozen.entrySet()) {
             this.getConfig().set("IsFrozendata." + entry.getKey(), entry.getValue());
-            System.out.println("le joueur " + entry.getKey() + "a bien été sauvegardé avec le isFrozen : " + entry.getValue());
+        }
+        for (Map.Entry<UUID, ItemStack[]> entry : OldInv.entrySet()) {
+            this.getConfig().set("OldInvdata." + entry.getKey(), entry.getValue());
+        }
+        for (Map.Entry<UUID, Location> entry : OldLoc.entrySet()) {
+            this.getConfig().set("OldLocdata." + entry.getKey(), entry.getValue());
+        }
+        for (Map.Entry<UUID, String> entry : OldGamemod.entrySet()) {
+            this.getConfig().set("OldGamemoddata." + entry.getKey(), entry.getValue());
         }
         this.saveConfig();
 
@@ -84,6 +79,18 @@ public final class NswCorePlugin extends JavaPlugin {
         this.getConfig().getConfigurationSection("IsFrozendata").getKeys(false).forEach(key -> {
             boolean content = this.getConfig().getBoolean("IsFrozendata." + key);
             IsFrozen.put(UUID.fromString(key), content);
+        });
+        this.getConfig().getConfigurationSection("OldInvdata").getKeys(false).forEach(key -> {
+            ItemStack[] content = ((List<ItemStack>) this.getConfig().get("OldInvdata." + key)).toArray(new ItemStack[0]);
+            OldInv.put(UUID.fromString(key), content);
+        });
+        this.getConfig().getConfigurationSection("OldLocdata").getKeys(false).forEach(key -> {
+            Location content = this.getConfig().getLocation("OldLocdata." + key);
+            OldLoc.put(UUID.fromString(key), content);
+        });
+        this.getConfig().getConfigurationSection("OldGamemoddata").getKeys(false).forEach(key -> {
+            String content = this.getConfig().getString("OldGamemoddata." + key);
+            OldGamemod.put(UUID.fromString(key), content);
         });
     }
 }
