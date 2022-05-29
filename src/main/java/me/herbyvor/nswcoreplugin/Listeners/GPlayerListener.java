@@ -1,14 +1,16 @@
 package me.herbyvor.nswcoreplugin.Listeners;
 
-import com.google.common.util.concurrent.Service;
 import me.herbyvor.nswcoreplugin.NswCorePlugin;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
-import org.bukkit.event.entity.EntityDamageByEntityEvent;
 import org.bukkit.event.player.*;
 import org.bukkit.inventory.EquipmentSlot;
 import org.bukkit.inventory.Inventory;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Random;
 
 public class GPlayerListener implements Listener {
 
@@ -99,7 +101,5 @@ public class GPlayerListener implements Listener {
             p.sendMessage("§dvous êtes toujours en staffmod");
         }
     }
-
-
 
 }

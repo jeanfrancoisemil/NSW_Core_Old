@@ -27,7 +27,7 @@ public class FreezeCommand implements CommandExecutor {
                 if (main.IsFrozen.get(t.getUniqueId()) == false) {
                     //freeze du joueur
                     main.IsFrozen.put(t.getUniqueId(), true);
-                    t.sendMessage("§4§lVOUS AVEZ ETES IMOBILISE PAR " + p.getName());
+                    t.sendMessage("§4§lVOUS AVEZ ETES IMOBILISE PAR " + p.getName() + "NE QUITTEZ PAS SOUS PEINE DE BAN PERMANENT");
                     p.sendMessage("§5§lvous avez imobilisé " + t.getName());
                 } else {
                     //unfreeze du joueur

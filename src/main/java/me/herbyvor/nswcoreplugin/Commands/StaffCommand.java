@@ -46,7 +46,7 @@ public class StaffCommand implements CommandExecutor {
             freezer.setItemMeta(freezerMeta);
 
             //invsee
-            ItemStack invsee = new ItemStack(Material.SPYGLASS);
+            ItemStack invsee = new ItemStack(Material.CHEST);
             ItemMeta invseeMeta = invsee.getItemMeta();
             invseeMeta.setDisplayName("investigator");
             invsee.setItemMeta(invseeMeta);
@@ -77,15 +77,16 @@ public class StaffCommand implements CommandExecutor {
                 //désactivation du staffmod
                 p.sendMessage("§4§lDESACTIVATION DU STAFFMOD");
 
+                //reset des anciennes informations
+                p.teleport(main.OldLoc.get(p.getUniqueId()));
+                p.getInventory().setContents(main.OldInv.get(p.getUniqueId()));
+                p.setGameMode(GameMode.valueOf(main.OldGamemod.get(p.getUniqueId())));
+
                 //sortie du staffmod
                 p.setInvisible(false);
                 p.setInvulnerable(false);
                 p.setAllowFlight(false);
                 p.setCanPickupItems(true);
-                //reset des anciennes informations
-                p.teleport(main.OldLoc.get(p.getUniqueId()));
-                p.getInventory().setContents(main.OldInv.get(p.getUniqueId()));
-                p.setGameMode(GameMode.valueOf(main.OldGamemod.get(p.getUniqueId())));
 
 
 
