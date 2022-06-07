@@ -77,6 +77,7 @@ public class StaffCommand implements CommandExecutor {
                 //désactivation du staffmod
                 p.sendMessage("§4§lDESACTIVATION DU STAFFMOD");
 
+                p.setAllowFlight(false);
                 //reset des anciennes informations
                 p.teleport(main.OldLoc.get(p.getUniqueId()));
                 p.getInventory().setContents(main.OldInv.get(p.getUniqueId()));
@@ -85,7 +86,6 @@ public class StaffCommand implements CommandExecutor {
                 //sortie du staffmod
                 p.setInvisible(false);
                 p.setInvulnerable(false);
-                p.setAllowFlight(false);
                 p.setCanPickupItems(true);
 
 
